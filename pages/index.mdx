@@ -2,15 +2,20 @@
 Tinydancer is an open-source **light client** implementation for the Solana blockchain. This client is used to make the solana network more **trust minimized**.
 
 ## Background
-Any normal day-to-day blockchain user relies on trusted RPCs (full nodes) directly or indirectly (through wallets) to make any transactions or interact with the network. They can't run a full blockchain node inside their homes as it's expensive and infeasible. This clearly is a big issue as RPCs can lie to you or in extreme cases the entire network nodes may collude and produce invalid transactions or blocks. This is where light clients become critically important. Our specific implementation would come in several stages. 
+Any normal day-to-day user relies on trusted RPCs (full nodes) directly or indirectly (through wallets) to make any transactions or interact with the network. They can't run a full blockchain node inside their homes as it's expensive and infeasible. This clearly is a big issue as RPCs can lie to you or in extreme cases the entire network nodes may collude and produce invalid transactions or blocks. This is where light clients become critically important. Our specific implementation would come in several stages. 
 
 
 ## Solana
 Solana is the most active blockchain in the world due to it's fast transaction confirmation times and the lowest transaction fees (~0.0001 USD at the time of this writing) in the market today. This makes it very user friendly and affordable. This has led to around . There are [2,476](https://solanabeach.io/validators) validators in the network distributed all over the world in 6 different continents.
 
 
+
+## Why Tinydancer?
+We want to make Solana as trust minimized as possible while enabling other use-cases with our data avalability layer. We're currently at nano stage of our roadmap which would have the DA sampling and shred archival functionality. In addition to that we also have simple payment verification functionality where in any user can submit transactions to Solana through our light client and verify that the transaction was actually executed and verify that the data is available on-chain. 
+By providing open-source infrastructure we hope to help projects and support teams that require light client implementations in their dapps like for eg. wallets.
+
 ## Light clients
-Light clients in blockchain context are softwares that can run locally on any users device and connect to full nodes in the network to verify the state of the ledger and check for invalid state transitions.
+Light clients in the blockchain context are softwares that can run locally on any users device and connect to full nodes in the network to verify the state of the ledger and check for invalid state transitions.
 
 These clients do something called as Data Availability sampling or DA sampling to check whether the data of the ledger is available at any given point of time and is accessible by anyone permissionlessly.
 Another big perk of light clients is that they can run without any computational overhead on constrained hardware like Laptops or phones. The goal is to make blockchain data available to all without relying on any third party full nodes like RPC servers.
