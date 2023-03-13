@@ -1,15 +1,15 @@
 {
   "index": "Introduction",
-  "another": "Another Page",
-  "advanced": "Advanced (A Folder)",
+  "another": "Data Availibility",
+  "advanced": "Advanced Concepts",
   "about": {
     "title": "About",
     "type": "page"
   },
   "contact": {
-    "title": "Contact ↗",
+    "title": "Twitter ↗",
     "type": "page",
-    "href": "https://twitter.com/shuding_",
+    "href": "https://twitter.com/tinydancerio",
     "newWindow": true
   }
 }
