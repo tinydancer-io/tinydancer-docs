@@ -1,4 +1,6 @@
 {
-  "da": "Data Availability",
-  "shreds": "Shreds"
+  "das": "Data Availability",
+  "shreds": "Shreds",
+  "protocol-design": "Protocol Design",
+  "gossip-network": "Gossip Network"
 }

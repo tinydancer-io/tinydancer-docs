@@ -1,0 +1,27 @@
+# Protocol Design
+
+## Interactive
+For every block processed by the network, the diet clients query the block head-
+ers which should contain 2/3 of the staked votes of the nodes in the network,
+indicating consensus and block confirmation. In addition to receiving the list
+of validators who voted on the invalid block, clients would also get their stake
+amounts adding up to super majority stake and the signatures.
+
+Since we don’t want diet clients to store the entire ledger unlike a full node
+they need access to data from the rest of the network. We assume the network
+has an honest super minority and each client is at the very least connected to a
+single honest full node. The diet clients would use DA Sampling for every block
+as described in the above section. If the client receives all the requested shreds
+from the validator and it passes merkle authentication then the client can move
+on to the next stage. If not then it will proceed to request other diet clients in
+the network recurrently for the missing shreds. Upon failure of these the diet
+client would know that it should not trust the confirmation and data has been
+either withheld and/or tampered with.
+
+## Non-Interactive
+The above protocol can be made non-interactive by embedding a deterministic
+randomness function inside the validator client that takes in the Slot number
+and the diet client’s ed25519 public key as seed to generate a random vector
+to sample the shreds. This would eliminate the need for the diet client to
+request the nodes for shreds as the nodes would directly send the shreds to that
+particular diet client based on the corresponding sampled randomness.
