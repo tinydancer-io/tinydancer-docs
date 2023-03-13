@@ -1,30 +1,46 @@
+import { Callout, Tab, Tabs, Steps } from "nextra-theme-docs";
+
 # Getting Started
 
 ## Installation
 
+<Steps>
 ### Build and add to path
 
-`cargo b -r && cp ./target/release/tinydancer ~/.local/bin/`
+```bash
+cargo b -r && cp ./target/release/tinydancer ~/.local/bin/
+```
 
 ### Or install using cargo
 
-`cargo install --git https://github.com/tinydancer-io/half-baked-client tinydancer`
+```bash
+cargo install --git https://github.com/tinydancer-io/half-baked-client tinydancer
+```
 
 ## Run the node
 
 ### Configure the client
 
 To set the cluster in your config run:
-`tinydancer config set --cluster Localnet`
+
+```bash
+tinydancer config set --cluster Localnet
+```
 
 To set the log file in your config run:
-`tinydancer config set --log-path client.log`
+
+```bash
+tinydancer config set --log-path client.log
+```
 
 Although setting the log file is not strictly necessary it defaults to the current
 directory and creates a file called client.log.
 
 To see the config at any point run:
-`tinydancer config get`
+
+```bash
+tinydancer config get
+```
 
 ### Start your node
 
@@ -34,9 +50,10 @@ and the external RPC.
 <img src="https://i.imgur.com/1wGXbLI.png" width="500" height="300" />
 
 To start the node run:
-`tinydancer start <path_to_shred_archival>`
 
-import { Callout } from "nextra-theme-docs";
+```bash
+tinydancer start <path_to_shred_archival>
+```
 
 <Callout type="info">
 `<path_to_shred_archival>` is the path to the shred archival db to store the sampled shreds. It is recommended to create a dir in /mnt or /tmp
@@ -46,7 +63,10 @@ import { Callout } from "nextra-theme-docs";
 ### Monitor logs for the client
 
 To monitor the logs for the client run:
-`tinydancer logs`
+
+```bash
+tinydancer logs
+```
 
 This will stream the logs to your terminal.
 
@@ -54,11 +74,12 @@ This will stream the logs to your terminal.
 
 To verify a single slot from the CLI run:
 
-```
+```bash
 tinydancer verify --slot <slot_number>
 ```
 
 This will verify the slot and print the result to the terminal.
+
 <img
   src="https://i.imgur.com/xPaHMIT.png"
   width="500"
@@ -67,9 +88,78 @@ This will verify the slot and print the result to the terminal.
 />
 
 If the slot is invalid it will print the error to the terminal.
+
 <img
   src="https://i.imgur.com/Z6JzkfR.png"
   width="500"
   height="300"
   style={{ borderRadius: "0.75rem" }}
 />
+</Steps>
+
+Next, check out the next section to learn about organizing the documentation structure and configuring the website theme:
+
+import { Card, Cards } from "nextra-theme-docs";
+
+<Cards>
+  <Card
+    icon={
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth={1.5}
+        stroke="currentColor"
+        className="w-6 h-6"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z"
+        />
+      </svg>
+    }
+    title="Data Availability"
+    href="/core-concepts/da"
+  />
+  <Card
+    icon={
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth={1.5}
+        stroke="currentColor"
+        className="w-6 h-6"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M4.5 12a7.5 7.5 0 0015 0m-15 0a7.5 7.5 0 1115 0m-15 0H3m16.5 0H21m-1.5 0H12m-8.457 3.077l1.41-.513m14.095-5.13l1.41-.513M5.106 17.785l1.15-.964m11.49-9.642l1.149-.964M7.501 19.795l.75-1.3m7.5-12.99l.75-1.3m-6.063 16.658l.26-1.477m2.605-14.772l.26-1.477m0 17.726l-.26-1.477M10.698 4.614l-.26-1.477M16.5 19.794l-.75-1.299M7.5 4.205L12 12m6.894 5.785l-1.149-.964M6.256 7.178l-1.15-.964m15.352 8.864l-1.41-.513M4.954 9.435l-1.41-.514M12.002 12l-3.75 6.495"
+        />
+      </svg>
+    }
+    title="Shreds"
+    href="/core-concepts/shreds"
+  />
+  <Card
+    icon={
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth={1.5}
+        stroke="currentColor"
+        className="w-6 h-6"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9"
+        />
+      </svg>
+    }
+    title="TS Example"
+    href="/ts-example"
+  />
+</Cards>

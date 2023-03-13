@@ -1,6 +1,8 @@
 {
   "index": "Introduction",
   "getting-started": "Getting Started",
+  "ts-example": "TypeScript Example",
+  "diet-rpc-node": "Diet RPC Node",
   "core-concepts": {
     "title": "Core Concepts"
   },

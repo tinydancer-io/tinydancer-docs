@@ -1,0 +1,63 @@
+import { Callout, Tab, Tabs, Steps } from "nextra-theme-docs";
+
+# Using Tinydancer with a Frontend App
+
+In this example we will run the tinydancer client locally and
+use TS code to interact with it.
+
+Follow the installation instructions in the [Getting Started](/getting-started.mdx) section.
+
+<Steps>
+### Make sure the RPC server is running
+
+The custom RPC node with merkle shreds enabled should be running and both the RPC and websocket ports should be
+port forwarded to your machine. Checkout the [RPC Node](/diet-rpc-node) section for more details.
+
+### Start the tinydancer client
+
+```bash
+tinydancer start "/mnt/tiny-db"
+```
+
+This is how the tinydancer client looks like once it is running.
+
+<img src="https://res.cloudinary.com/dev-connect/image/upload/v1678728244/Screenshot_2023-03-13_at_10.53.46_PM_ah8rh0.png"
+
+style={{ borderRadius: "0.5rem" }}
+/>
+
+### Send the transaction in typescript
+
+```typescript
+const txn = await signTransaction(transferTransaction);
+const sendTxnPayload = {
+  jsonrpc: "2.0",
+  id: 1,
+  method: "sendTransaction",
+  params: [txn.serialize()],
+};
+const { data } = await axios.post("http://0.0.0.0:8890", sendTxnPayload);
+```
+
+### Check the status of the transaction
+
+```typescript
+let res = await axios.post("http://0.0.0.0:8890", {
+  jsonrpc: "2.0",
+  id: 1,
+  method: "getSignatureStatuses",
+  params: [
+    [data.result],
+    {
+      searchTransactionHistory: true,
+    },
+  ],
+});
+if (!res.data.result.context.sampled) {
+  alert("dont trust confirmation");
+} else {
+  alert("txn confirmed!");
+}
+```
+
+</Steps>

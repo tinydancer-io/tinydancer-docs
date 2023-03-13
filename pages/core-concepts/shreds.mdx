@@ -1,4 +1,5 @@
 # Shreds
+
 Shred is a data structure which can be referred to as the smallest unit of a block
 that are sent across the network in the form of UDP packets using Turbine
 Block Propagation. Shredding is the process done after creating Entries into
@@ -16,36 +17,45 @@ itself is critical due to packet loss. The coding shreds also prevent any malici
 node from dropping packets while propagating the shreds.
 
 Each Shred also has the following data layout:
- - Common Header
- - Data or Coding Header
- - Payload
 
+- Common Header
+- Data or Coding Header
+- Payload
 
 import { Callout } from "nextra-theme-docs";
 
 <Callout type="info">
-#### Common Header
-The common header contains the signature of the leader which is a signed
-message originated from the merkle root of the shreds. This is used to validate
-that the shreds are received from the leader and to slash the leader if the
-proofs don’t compute to the root. It also contains the slot number, the shred
-version and the FEC index which helps with creating the coding shreds.
+  #### Common Header The common header contains the signature of the leader
+  which is a signed message originated from the merkle root of the shreds. This
+  is used to validate that the shreds are received from the leader and to slash
+  the leader if the proofs don’t compute to the root. It also contains the slot
+  number, the shred version and the FEC index which helps with creating the
+  coding shreds.
 </Callout>
 
 ## Data Shred
+
 Data shreds are the individually transmitted units of the ledger entries. The
 payload here contains the path of the shred to the merkle root i.e the proof and
 the actual merkle root. This allows for doing equality checks without having to
 reconstruct the whole block. It is important to note that this a newly imple-
 mented method and the legacy method didn’t have merkle proofs in shreds.
-<br/>
 
-<p><img src="https://res.cloudinary.com/dev-connect/image/upload/v1678726481/Screenshot_2023-03-13_at_10.24.26_PM_np6qup.png" alt="Shred Merkle Tree" width="800" title="Figure 1: A Merkle Tree with data and coding shreds as leaves. Given S10 shred
-can be validated using proof {S11,S4,S3}"/></p>
+<br />
+
+<p>
+  <img
+    src="https://res.cloudinary.com/dev-connect/image/upload/v1678726481/Screenshot_2023-03-13_at_10.24.26_PM_np6qup.png"
+    alt="Shred Merkle Tree"
+    width="800"
+    title="Figure 1: A Merkle Tree with data and coding shreds as leaves. Given S10 shred
+can be validated using proof {S11,S4,S3}"
+  />
+</p>
 
 ## Coding Shred
+
 Coding shreds store the erasure-coded data. Solana uses Reed-Solomon erasure
 coding, a polynomial encoding algorithm. Given n shreds and k data shreds we
 get the number of coding shreds t = n - k. The coded shreds are generated
 using a generator polynomial `g(x) = (x-a)(x-a2)(x-a3). . . . . . (x-a2t)`
-

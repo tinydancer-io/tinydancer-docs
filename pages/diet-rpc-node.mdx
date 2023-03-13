@@ -1,0 +1,196 @@
+import { Callout, Tab, Tabs, Steps } from "nextra-theme-docs";
+
+# Diet RPC Node
+
+## Introduction
+
+The diet client has to request specific shreds and block headers from the full nodes, in order to
+do that we have to implement a RPC node that can communicate with the light client using the
+JSON RPC API.
+
+We added two new methods to the RPC node:
+
+#### Get block headers method `get_block_headers`
+
+Returns the requested block header by the slot number and block configuration
+
+Input params:
+
+- Slot
+- RpcBlockConfig
+
+Output:
+
+- `BlockHeader`
+
+#### Block Header type
+
+```rs
+pub struct BlockHeader {
+    pub vote_signature: Vec<Option<String>>,
+    pub validator_identity: Vec<Option<Pubkey>>,
+    pub validator_stake: Vec<Option<u64>>,
+}
+```
+
+#### Get shreds method `get_shreds`
+
+Returns the requested shreds upon call filtered by the slot number and indices
+
+Input params:
+
+- Slot
+- Shred Indices
+
+Request:
+
+```sh
+curl http://localhost:8899 -X POST -H "Content-Type: application/json" -d '
+  {"jsonrpc": "2.0","id":1,"method":"getShreds","params":[1,[0,1,2] ]}
+'
+```
+
+Output:
+
+- `Vec<Option<Shred>>`
+
+## Steps to build and run the RPC node
+
+<Callout type="warning">
+  <strong>Note:</strong> In the future once merkle shreds are enabled on devnet and testnet, 
+  the node will be able to run on the respective networks, but for now you will have to rely on the solana-test-validator
+</Callout>
+<Tabs items={['Test Validator', 'Devnet RPC Node']}>
+  <Tab>
+    <Steps>
+### Clone the repo
+```sh
+git clone https://github.com/tinydancer-io/diet-rpc-validator.git
+```
+
+### Build the binary
+
+```sh
+cargo build --release
+```
+
+### Run the test validator
+
+```sh
+/target/release/solana-test-validator
+```
+
+</Steps>
+  </Tab>
+  <Tab>
+  <Steps>
+### Clone the repo
+```sh
+git clone https://github.com/tinydancer-io/diet-rpc-validator.git
+```
+
+### Build the binary
+
+```sh
+cargo build --release
+```
+
+### Run our setup script
+
+```bash
+#!/bin/sh
+
+sudo touch solana-validator.log
+
+sudo bash -c 'cat >> /etc/sysctl.conf <<- EOF
+# set minimum, default, and maximum tcp buffer sizes (10k, 87.38k (linux default), 12M resp)
+net.ipv4.tcp_rmem=10240 87380 12582912
+net.ipv4.tcp_wmem=10240 87380 12582912
+# Enable TCP westwood for kernels greater than or equal to 2.6.13
+net.ipv4.tcp_congestion_control=westwood
+net.ipv4.tcp_fastopen=3
+net.ipv4.tcp_timestamps=0
+net.ipv4.tcp_sack=1
+net.ipv4.tcp_low_latency=1
+# Enable fast recycling TIME-WAIT sockets
+# net.ipv4.tcp_tw_recycle = 1 this is in solana tuner, but fails, changing to below, see - https://djangocas.dev/blog/troubleshooting-tcp_tw_recycle-no-such-file-or-directory/
+net.ipv4.tcp_tw_reuse = 1
+# dont cache ssthresh from previous connection
+net.ipv4.tcp_no_metrics_save = 1
+net.ipv4.tcp_moderate_rcvbuf = 1
+# kernel Tunes
+kernel.timer_migration=0
+kernel.hung_task_timeout_secs=30
+# A suggested value for pid_max is 1024 * <# of cpu cores/threads in system>
+kernel.pid_max=49152
+# vm.tuning
+vm.swappiness=30
+vm.max_map_count=2000000
+vm.stat_interval=10
+vm.dirty_ratio=40
+vm.dirty_background_ratio=10
+vm.min_free_kbytes = 3000000
+vm.dirty_expire_centisecs=36000
+vm.dirty_writeback_centisecs=3000
+vm.dirtytime_expire_seconds=43200
+# solana systuner
+net.core.rmem_max=134217728
+net.core.rmem_default=134217728
+net.core.wmem_max=134217728
+net.core.wmem_default=134217728
+EOF'
+
+sudo sysctl -p
+```
+
+### Mount to a ramdisk
+
+```bash
+#!/bin/sh
+sudo mkdir /mnt/accounts
+sudo mkdir /mnt/ledger
+sudo mkdir /mnt/snapshots
+
+
+sudo mount -o size=160G -t tmpfs none /mnt/accounts # incase it overflows just move it to a non ramdisk in /mnt(anyway with pcie nvme ssd u dont benefit much from ramdisk)
+sudo mount -o size=80G -t tmpfs none /mnt/snapshots
+sudo mount -o size=80G -t tmpfs none /mnt/ledger
+
+sudo ls -la /mnt
+```
+
+### Start the node
+
+```bash
+#!/bin/sh
+/home/<USER>/<NAME-OF-YOUR-RPC-BINARY>/target/release/solana-validator \
+  --identity ./test-keypair.json \
+  --vote-account ./test-keypair.json \
+  --rpc-port 8899 \
+  --entrypoint entrypoint.devnet.solana.com:8001 \
+  --limit-ledger-size \
+  --no-voting \
+  --no-os-network-limits-test \
+  --minimal-snapshot-download-speed 100000000 \
+  --skip-poh-verify \
+  --no-snapshot-fetch \
+  --no-genesis-fetch \
+  --no-poh-speed-test \
+  --full-rpc-api \
+  --enable-rpc-transaction-history \
+  --log solana-validator.log \
+  --accounts /mnt/accounts \
+  --ledger /mnt/ledger \
+  --snapshots /mnt/snapshots
+```
+
+<Callout type="warning">
+  <strong>Note:</strong> These two flags are required if you already have a snapshot otherwise remove them.
+```bash
+--no-snapshot-fetch \
+--no-genesis-fetch \
+```
+</Callout>
+</Steps>
+  </Tab>
+</Tabs>

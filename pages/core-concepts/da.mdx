@@ -18,4 +18,26 @@ They receive block headers from full nodes, and on request, Merkle proofs
 that some transaction or state is a part of the block header.
 
 The core responsibility of any ideal blockchain network is to ensure that all the ledger data is always available. Also as time passes, the size of the ledger grows exponentially especially in blockchains like Solana where the number of transactions or state transitions per day are in the order of millions. Even though solana nodes store upto two days worth of data (per epoch) the size of the data can be as much as 40-50 GB. This makes it infeasible for any normal user to verify the state of their transactions on their own, which is why they rely on full-nodes like RPCs.
-A light client doesn't download the entire ledger state
+A light client doesn't download the entire ledger state.
+
+The diet client would request r random samples of shreds from a particular
+validator from the gossip table. As mentioned before the probability of data
+being missing is 2-r if 2 is the erasure ratio. Hence r would have to be a
+value small enough that it’s efficient to sample but large enough to reduce the
+probability of an error. We can calculate it by using this formula `1/2^r`
+which would give us the probability of data being withheld given the shreds
+we sampled. Notice how at 10 shreds the probability is low but then just
+doubling it to 20 it becomes exponentially lower and we can easily validate
+around 256 shreds as blocks are much larger.
+
+The validators would have to recompute the shreds from the block in the
+bank on request from the diet client. Once the shred samples are obtained the
+diet client will individually check if the proof in the payload computes to the
+root in the same for each. It will also check the shred headers if the signature
+is a signed message that contains the root signed by the leader.
+
+<br />
+<img
+  src="https://res.cloudinary.com/dev-connect/image/upload/v1678727188/Screenshot_2023-03-13_at_10.34.06_PM_nnyy3q.png"
+  width="800"
+/>
