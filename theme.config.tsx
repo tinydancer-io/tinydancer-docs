@@ -11,7 +11,7 @@ const config: DocsThemeConfig = {
   },
   docsRepositoryBase: "https://github.dev/tinydancer-io/tinydancer-docs",
   footer: {
-    text: "© 2021 Schwifty Labs",
+    text: "© 2023 Schwifty Labs",
   },
 };
 

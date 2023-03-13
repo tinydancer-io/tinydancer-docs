@@ -1,20 +1,59 @@
 # Getting Started
 
 ## Installation
+
 ### Build and add to path
 
-```cargo b -r && cp ./target/release/tinydancer ~/.local/bin/```
+`cargo b -r && cp ./target/release/tinydancer ~/.local/bin/`
 
 ### Or install using cargo
 
-```cargo install --git https://github.com/tinydancer-io/half-baked-client tinydancer```
+`cargo install --git https://github.com/tinydancer-io/half-baked-client tinydancer`
 
-## Run the client
+## Run the node
 
 ### Configure the client
-```tinydancer config set --cluster Localnet```
-```tinydancer config set --log-path client.log```
 
+To set the cluster in your config run:
+`tinydancer config set --cluster Localnet`
 
-To run
-```tinydancer 
+To set the log file in your config run:
+`tinydancer config set --log-path client.log`
+
+Although setting the log file is not strictly necessary it defaults to the current
+directory and creates a file called client.log.
+
+To see the config at any point run:
+`tinydancer config get`
+
+### Start your node
+
+The Node will start a local RPC server that acts as a relayer between your
+and the external RPC.
+
+<img src="https://i.imgur.com/1wGXbLI.png" width="500" height="300" />
+
+To start the node run:
+`tinydancer start <path_to_shred_archival>`
+
+import { Callout } from "nextra-theme-docs";
+
+<Callout type="info">
+`<path_to_shred_archival>` is the path to the shred archival db to store the sampled shreds. It is recommended to create a dir in /mnt or /tmp
+    and use that.
+</Callout>
+
+### Monitor logs for the client
+
+To monitor the logs for the client run:
+`tinydancer logs`
+
+This will stream the logs to your terminal.
+
+### Verify a single slot from the CLI
+
+To verify a single slot from the CLI run:
+
+```
+tinydancer verify --slot <slot_number>
+```

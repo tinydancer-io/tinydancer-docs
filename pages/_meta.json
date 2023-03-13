@@ -1,6 +1,7 @@
 {
   "index": "Introduction",
   "da": "Data Availibility",
+  "getting-started":"Getting Started",
   "about": {
     "title": "About",
     "type": "page"
