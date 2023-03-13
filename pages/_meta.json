@@ -1,7 +1,9 @@
 {
   "index": "Introduction",
-  "da": "Data Availibility",
-  "getting-started":"Getting Started",
+  "getting-started": "Getting Started",
+  "core-concepts": {
+    "title": "Core Concepts"
+  },
   "about": {
     "title": "About",
     "type": "page"
