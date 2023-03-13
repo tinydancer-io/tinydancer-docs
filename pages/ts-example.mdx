@@ -15,7 +15,7 @@ port forwarded to your machine. Checkout the [RPC Node](/diet-rpc-node) section 
 
 ### Start the tinydancer client
 
-```bash
+```bash copy
 tinydancer start "/mnt/tiny-db"
 ```
 
@@ -28,7 +28,7 @@ style={{ borderRadius: "0.5rem" }}
 
 ### Send the transaction in typescript
 
-```typescript
+```ts copy
 const txn = await signTransaction(transferTransaction);
 const sendTxnPayload = {
   jsonrpc: "2.0",
@@ -41,7 +41,7 @@ const { data } = await axios.post("http://0.0.0.0:8890", sendTxnPayload);
 
 ### Check the status of the transaction
 
-```typescript
+```ts copy
 let res = await axios.post("http://0.0.0.0:8890", {
   jsonrpc: "2.0",
   id: 1,

@@ -7,13 +7,13 @@ import { Callout, Tab, Tabs, Steps } from "nextra-theme-docs";
 <Steps>
 ### Build and add to path
 
-```bash
+```bash copy
 cargo b -r && cp ./target/release/tinydancer ~/.local/bin/
 ```
 
 ### Or install using cargo
 
-```bash
+```bash copy
 cargo install --git https://github.com/tinydancer-io/half-baked-client tinydancer
 ```
 
@@ -23,13 +23,13 @@ cargo install --git https://github.com/tinydancer-io/half-baked-client tinydance
 
 To set the cluster in your config run:
 
-```bash
+```bash copy
 tinydancer config set --cluster Localnet
 ```
 
 To set the log file in your config run:
 
-```bash
+```bash copy
 tinydancer config set --log-path client.log
 ```
 
@@ -38,7 +38,7 @@ directory and creates a file called client.log.
 
 To see the config at any point run:
 
-```bash
+```bash copy
 tinydancer config get
 ```
 
@@ -51,7 +51,7 @@ and the external RPC.
 
 To start the node run:
 
-```bash
+```bash copy
 tinydancer start <path_to_shred_archival>
 ```
 
@@ -64,7 +64,7 @@ tinydancer start <path_to_shred_archival>
 
 To monitor the logs for the client run:
 
-```bash
+```bash copy
 tinydancer logs
 ```
 
@@ -74,7 +74,7 @@ This will stream the logs to your terminal.
 
 To verify a single slot from the CLI run:
 
-```bash
+```bash copy
 tinydancer verify --slot <slot_number>
 ```
 

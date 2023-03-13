@@ -25,7 +25,7 @@ Output:
 
 #### Block Header type
 
-```rs
+```rs copy
 pub struct BlockHeader {
     pub vote_signature: Vec<Option<String>>,
     pub validator_identity: Vec<Option<Pubkey>>,
@@ -44,7 +44,7 @@ Input params:
 
 Request:
 
-```sh
+```sh copy
 curl http://localhost:8899 -X POST -H "Content-Type: application/json" -d '
   {"jsonrpc": "2.0","id":1,"method":"getShreds","params":[1,[0,1,2] ]}
 '
@@ -64,19 +64,19 @@ Output:
   <Tab>
     <Steps>
 ### Clone the repo
-```sh
+```sh copy
 git clone https://github.com/tinydancer-io/diet-rpc-validator.git
 ```
 
 ### Build the binary
 
-```sh
+```sh copy
 cargo build --release
 ```
 
 ### Run the test validator
 
-```sh
+```sh copy
 /target/release/solana-test-validator
 ```
 
@@ -85,19 +85,19 @@ cargo build --release
   <Tab>
   <Steps>
 ### Clone the repo
-```sh
+```sh copy
 git clone https://github.com/tinydancer-io/diet-rpc-validator.git
 ```
 
 ### Build the binary
 
-```sh
+```sh copy
 cargo build --release
 ```
 
 ### Run our setup script
 
-```bash
+```bash copy
 #!/bin/sh
 
 sudo touch solana-validator.log
@@ -145,7 +145,7 @@ sudo sysctl -p
 
 ### Mount to a ramdisk
 
-```bash
+```bash copy
 #!/bin/sh
 sudo mkdir /mnt/accounts
 sudo mkdir /mnt/ledger
@@ -161,7 +161,7 @@ sudo ls -la /mnt
 
 ### Start the node
 
-```bash
+```bash copy
 #!/bin/sh
 /home/<USER>/<NAME-OF-YOUR-RPC-BINARY>/target/release/solana-validator \
   --identity ./test-keypair.json \
@@ -186,7 +186,7 @@ sudo ls -la /mnt
 
 <Callout type="warning">
   <strong>Note:</strong> These two flags are required if you already have a snapshot otherwise remove them.
-```bash
+```bash copy
 --no-snapshot-fetch \
 --no-genesis-fetch \
 ```
