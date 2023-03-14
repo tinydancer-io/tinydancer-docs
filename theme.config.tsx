@@ -90,11 +90,11 @@ export default {
     key: "Tinydancer",
     text: "Tinydancer is the first light client for the Solana blockchain.",
   },
-  chat: {
-    link: "https://twitter.com/tinydancerio",
-  },
   footer: {
     text: "© 2023 Schwifty Labs",
+  },
+  project: {
+    link: 'https://github.com/shuding/nextra'
   },
   docsRepositoryBase: "https://github.dev/tinydancer-io/tinydancer-docs",
   editLink: {
@@ -159,5 +159,15 @@ export default {
         site: "https://github.com/tinydancer-io",
       },
     };
+  },
+  sidebar: {
+    titleComponent({ title, type }) {
+      if (type === 'separator') {
+        return <span className="cursor-default">{title}</span>
+      }
+      return <>{title}</>
+    },
+    defaultMenuCollapseLevel: 2,
+    toggleButton: true,
   },
 };
