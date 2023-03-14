@@ -5,11 +5,11 @@ on:
     branches: [main]
 
 jobs:
-  pre-job:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Cancel redundant workflows
-        uses: technote-space/auto-cancel-redundant-workflow@v1
+  # pre-job:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Cancel redundant workflows
+  #       uses: technote-space/auto-cancel-redundant-workflow@v1
 
   deploy:
     runs-on: ubuntu-latest
@@ -30,10 +30,12 @@ jobs:
       - name: Install vercel
         run: pnpm i vercel -g
 
+      - name: Format with Prettier
+        run: pnpm run format
+
       - name: Deploy Docs
         run: vercel -f --prod --token $VERCEL_TOKEN
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_CLI_TOKEN }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJ }}
-    

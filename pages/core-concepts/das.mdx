@@ -18,22 +18,23 @@ They receive block headers from full nodes, and on request, Merkle proofs
 that some transaction or state is a part of the block header.
 
 ## The Data availability vs Scalability problem
+
 Generally whenever there's a new block, a full node like an RPC server downloads the entire transaction data of the block to verify data availability.
-If this node can download the entire data and verify the integrity of every transaction then we can say that the data is available. Now as blockchains 
+If this node can download the entire data and verify the integrity of every transaction then we can say that the data is available. Now as blockchains
 like solana scale, the number of transactions included in a block may increase exponentially, in addition to that Solana produces blocks at every ~400ms.
 Now if we want to verify data availability considering the above situation, we would require very beefy hardware which is normally expensive to run for any
 day-to-day user and it requires technical prowess and overhead to run a full node. Hence it is unlikely for any normal user to run a full node at their homes.
 
-Now if these users can't run a full node, where do they go? trusted third party RPC providers. Popular wallet providers setup their own RPC servers. This is 
-a big trust assumption on these third parties and there's no way to verify data availability. Nobody's stopping these RPCs from **[censoring any data](https://www.theblock.co/post/162402/infura-and-alchemy-blocking-access-to-tornado-cash) 
+Now if these users can't run a full node, where do they go? trusted third party RPC providers. Popular wallet providers setup their own RPC servers. This is
+a big trust assumption on these third parties and there's no way to verify data availability. Nobody's stopping these RPCs from \*\*[censoring any data](https://www.theblock.co/post/162402/infura-and-alchemy-blocking-access-to-tornado-cash)
 that could be very vital for any user. This is an example of a data witholding attack. Since transaction data is withheld, normal users can't verify the latest state of the ledger.
-Such an attack can have numerous consequences, from halting a chain to gaining the ability to steal funds or other invalid state transitions. To prevent malicious adversaries from witholding data which would have ideally 
-acquired by the honest node, we need Data Availabilty sampling. We implement a data availability sampling scheme based on Reed-Solomon erasure coding which is already used by Solana in the Turbine block propagation mechanism. 
+Such an attack can have numerous consequences, from halting a chain to gaining the ability to steal funds or other invalid state transitions. To prevent malicious adversaries from witholding data which would have ideally
+acquired by the honest node, we need Data Availabilty sampling. We implement a data availability sampling scheme based on Reed-Solomon erasure coding which is already used by Solana in the Turbine block propagation mechanism.
 Light clients request random shreds of data. Shreds can be thought of as fragments of a block (more details in the shred section).
 
-The core responsibility of any ideal blockchain network is to ensure that all the ledger data is always available. Also as time passes, the size of the ledger grows exponentially especially in blockchains like Solana where the number of transactions or state transitions per day are in the order of millions. 
+The core responsibility of any ideal blockchain network is to ensure that all the ledger data is always available. Also as time passes, the size of the ledger grows exponentially especially in blockchains like Solana where the number of transactions or state transitions per day are in the order of millions.
 Even though solana nodes store upto two days worth of data (per epoch) the size of the data can be as much as 40-50 GB. This makes it infeasible for any normal user to verify the state of their transactions on their own, which is why they rely on full-nodes like RPCs.
-A light client doesn't download the entire ledger state. Specifically, a node will verify data availability when it observes a new block that is getting added to the chain. 
+A light client doesn't download the entire ledger state. Specifically, a node will verify data availability when it observes a new block that is getting added to the chain.
 
 The diet client would request r random samples of shreds from a particular
 validator from the gossip table. As mentioned before the probability of data

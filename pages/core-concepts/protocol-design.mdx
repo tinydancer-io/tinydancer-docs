@@ -1,6 +1,7 @@
 # Protocol Design
 
 ## Interactive
+
 For every block processed by the network, the diet clients query the block head-
 ers which should contain 2/3 of the staked votes of the nodes in the network,
 indicating consensus and block confirmation. In addition to receiving the list
@@ -19,6 +20,7 @@ client would know that it should not trust the confirmation and data has been
 either withheld and/or tampered with.
 
 ## Non-Interactive
+
 The above protocol can be made non-interactive by embedding a deterministic
 randomness function inside the validator client that takes in the Slot number
 and the diet client’s ed25519 public key as seed to generate a random vector

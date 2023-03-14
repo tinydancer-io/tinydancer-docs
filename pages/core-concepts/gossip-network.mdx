@@ -1,6 +1,7 @@
 # Gossip Network
 
 ## Cluster Replicated Datastore for Diet Clients
+
 Individually the diet clients would be sampling shreds and storing them for the
 epoch which would help prevent eclipse attacks as explained above. In addition
 to that, it also helps the lagging clients to sync up very quickly with others in
@@ -15,6 +16,7 @@ and node. Upon verify the merkle root if there seems to be an invalid shred
 that too can be confirmed with other clients in the network.
 
 ## Client Aided Partition Repair
+
 Validators tend to have to repair their forks either due to inefficiency in turbine
 or network difficulties. Repair is usually extremely slow and inefficient. Addi-
 tionally, nodes can be eclipsed from the shreds necessary to repair the partition
