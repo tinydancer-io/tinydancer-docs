@@ -94,7 +94,7 @@ export default {
     text: "© 2023 Schwifty Labs",
   },
   project: {
-    link: 'https://github.com/shuding/nextra'
+    link: "https://github.dev/tinydancer-io/half-baked-client",
   },
   docsRepositoryBase: "https://github.dev/tinydancer-io/tinydancer-docs",
   editLink: {
@@ -142,14 +142,11 @@ export default {
         { content: "/ms-icon-144x144.png", name: "msapplication-TileImage" },
       ],
       description:
-        frontMatter.description ||
         "Tinydancer is the first light client for the Solana blockchain.",
       openGraph: {
         images: [
           {
-            url:
-              frontMatter.image ||
-              "https://res.cloudinary.com/dev-connect/image/upload/v1678723904/tinydancerog_whkzqm.png",
+            url: "https://res.cloudinary.com/dev-connect/image/upload/v1678723904/tinydancerog_whkzqm.png",
           },
         ],
       },
@@ -162,10 +159,10 @@ export default {
   },
   sidebar: {
     titleComponent({ title, type }) {
-      if (type === 'separator') {
-        return <span className="cursor-default">{title}</span>
+      if (type === "separator") {
+        return <span className="cursor-default">{title}</span>;
       }
-      return <>{title}</>
+      return <>{title}</>;
     },
     defaultMenuCollapseLevel: 2,
     toggleButton: true,
