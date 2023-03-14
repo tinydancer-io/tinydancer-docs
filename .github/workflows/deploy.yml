@@ -32,7 +32,7 @@ jobs:
 
       - name: Format with Prettier
         run: npx prettier --write .
-        
+
       - name: Deploy Docs
         run: vercel -f --prod --token $VERCEL_TOKEN
         env:
