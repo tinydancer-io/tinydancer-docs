@@ -31,8 +31,8 @@ jobs:
         run: pnpm i vercel -g
 
       - name: Format with Prettier
-        run: pnpm run format
-
+        run: npx prettier --write .
+        
       - name: Deploy Docs
         run: vercel -f --prod --token $VERCEL_TOKEN
         env:
