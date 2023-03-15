@@ -101,6 +101,40 @@ export default {
     text: "Contribute to this page",
   },
   faviconGlyph: "✦",
+  head: (
+    <>
+      <meta property="og:title" content="Tinydancer" />
+      <meta
+        property="og:description"
+        content="The first light client for the Solana blockchain."
+      />
+      <meta
+        property="og:image"
+        content="https://res.cloudinary.com/dev-connect/image/upload/v1678723904/tinydancerog_whkzqm.png"
+      />
+      <title>Tinydancer Docs</title>
+
+      <meta property="og:url" content="https://docs.tinydancer.io" />
+
+      <meta property="og:type" content="website" />
+      <meta name="twitter:site" content="@tinydancerio" />
+      <meta name="twitter:title" content="Tinydancer Docs" />
+      <meta name="twitter:creator" content="@tinydancerio" />
+      <meta
+        name="twitter:image"
+        content="https://res.cloudinary.com/dev-connect/image/upload/v1678723904/tinydancerog_whkzqm.png"
+      />
+      <meta
+        name="twitter:description"
+        content="The first light client for the Solana blockchain."
+      />
+      <meta name="twitter:card" content="summary_large_image"></meta>
+      <meta
+        property="og:description"
+        content="The first light client for the Solana blockchain."
+      />
+    </>
+  ),
   useNextSeoProps() {
     const { frontMatter } = useConfig();
     return {
