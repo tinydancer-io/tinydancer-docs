@@ -38,7 +38,7 @@ A light client doesn't download the entire ledger state. Specifically, a node wi
 
 The diet client would request r random samples of shreds from a particular
 validator from the gossip table. As mentioned before the probability of data
-being missing is 2-r if 2 is the erasure ratio. Hence r would have to be a
+being missing is `2^-r` if 2 is the erasure ratio. Hence r would have to be a
 value small enough that it’s efficient to sample but large enough to reduce the
 probability of an error. We can calculate it by using this formula `1/2^r`
 which would give us the probability of data being withheld given the shreds
