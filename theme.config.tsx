@@ -110,7 +110,7 @@ export default {
       />
       <meta
         property="og:image"
-        content="https://res.cloudinary.com/dev-connect/image/upload/v1678723904/tinydancerog_whkzqm.png"
+        content="https://res.cloudinary.com/dev-connect/image/upload/v1678962390/tdnewogimage_ayxxw5.png"
       />
       <title>Tinydancer Docs</title>
 
@@ -122,7 +122,7 @@ export default {
       <meta name="twitter:creator" content="@tinydancerio" />
       <meta
         name="twitter:image"
-        content="https://res.cloudinary.com/dev-connect/image/upload/v1678723904/tinydancerog_whkzqm.png"
+        content="https://res.cloudinary.com/dev-connect/image/upload/v1678962390/tdnewogimage_ayxxw5.png"
       />
       <meta
         name="twitter:description"
@@ -180,7 +180,7 @@ export default {
       openGraph: {
         images: [
           {
-            url: "https://res.cloudinary.com/dev-connect/image/upload/v1678723904/tinydancerog_whkzqm.png",
+            url: "https://res.cloudinary.com/dev-connect/image/upload/v1678962390/tdnewogimage_ayxxw5.png",
           },
         ],
       },
