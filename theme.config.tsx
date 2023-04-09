@@ -94,7 +94,7 @@ export default {
     text: "© 2023 Schwifty Labs",
   },
   project: {
-    link: "https://github.com/tinydancer-io/half-baked-client",
+    link: "https://github.com/tinydancer-io/tinydancer",
   },
   docsRepositoryBase: "https://github.com/tinydancer-io/tinydancer-docs",
   editLink: {
